@@ -1,0 +1,29 @@
+kind: pipeline
+type: ssh
+name: default
+server:
+  host:
+    from_secret: host
+  user:
+    from_secret: username
+  ssh_key:
+    from_secret: ssh_key
+steps:
+- name: prepare
+  commands:
+  - git clone -b drone --depth=1 --single-branch https://focs.ji.sjtu.edu.cn/git/ENGR151-22/materials.git
+  - rm -rf materials/.git
+  - cp -rf materials/. ./
+  - rm -rf materials
+  - chmod +x ./*
+- name: build_make
+  commands:
+  - make onecard
+  - make clean
+- name: code check
+  commands:
+  - ./code-check.sh
+- name: runtime check
+  commands:
+  - make check-msan check-asan-lsan-ubsan
+  - ./runtime-check.sh

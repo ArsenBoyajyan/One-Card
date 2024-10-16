@@ -1,0 +1,17 @@
+*
+!*/
+.*/
+!.gitignore
+!README
+!Readme
+!readme
+!CHANGELOG
+!Changelog
+!changelog
+!*.txt
+!*.md
+!*.c
+!*.h
+!Makefile
+!makefile
+!.drone.yml
